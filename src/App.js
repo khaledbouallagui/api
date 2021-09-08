@@ -4,7 +4,7 @@ import navigation from "./components/navigation";
 import {Route,switch}from "react-router-dom";
 import UserList from './components/userList'
 import UserListAxios from "./components/UserListAxios";
-  case value:
+import profil from "./components/profil";
     
 function App() {
   return (
@@ -13,9 +13,9 @@ function App() {
     <switch>
     {/*<route path='/'component={Userlist}
   />*/}
-  <route path ='/'component={UserListAxios}/>
-  <route path='profile/:id' render={(props)=>
-    <Profile {...props}/>
+  <route exact path='/'component={UserListAxios}/>
+  <route exact path='profil/:id' render={(props)=>
+    <Profil {...props}/>
     }/>
     </switch>
     </div>
