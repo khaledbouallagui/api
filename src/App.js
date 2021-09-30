@@ -1,24 +1,24 @@
 import "./App.css";
-import"bootstrap/dist/css/bootstrap.min.css";
-import navigation from "./components/navigation";
-import {Route,switch}from "react-router-dom";
-import UserList from './components/userList'
-import UserListAxios from "./components/UserListAxios";
-import profil from "./components/profil";
-    
+import "bootstrap/dist/css/bootstrap.min.css";
+import UserListAxios from "./UserListAxios.js";
+import UserList from "./Userlist.js";
+import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+import Navigation from "./Navigation";
+
 function App() {
   return (
+    <Router>
     <div className="App">
-    <navigation/>
-    <switch>
-    {/*<route path='/'component={Userlist}
+    <Navigation />
+        <Switch>
+          {/*<route path='/'component={Userlist}
   />*/}
-  <route exact path='/'component={UserListAxios}/>
-  <route exact path='profil/:id' render={(props)=>
-    <Profil {...props}/>
-    }/>
-    </switch>
+          <Route exact path="/" component={UserList} />
+          
+        </Switch>
+   
     </div>
+    </Router>
   );
-  }
-  export default App;
+}
+export default App;

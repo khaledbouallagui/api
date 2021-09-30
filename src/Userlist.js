@@ -1,32 +1,28 @@
-import {useEffect,UseState} from 'react'
-import UserCard from "./UserCard";
-const Userlist =()=>{
-    const [users, setusers] = useState([]);
-    const [loading , setloading] = usestate (true)
-    //create update read delate :post pull get delete
+import axios from 'axios'
+import React, { useEffect, useState } from 'react'
+import User from './User'
+import UserCard from './UserCard'
+
+const UserList = () => {
+    const [users, setUsers] = useState([])
+    const getUsers=async()=>{
+        try {
+            const response=await axios.get("https://jsonplaceholder.typicode.com/users")
+            setUsers(response.data)  
+        } catch (error) {
+            console.log(error)
+        }
+        }
 
     useEffect(() => {
-        fetch("https://jsonplaceholder.typicode.com/users")
-        .then((res) => res.json()) //convert to json
-         .then((data) =>{
-              setUsers(data);
-              setloading(false);}
-         .then 
-         (err) => console.error(err)
+getUsers() 
+    }, [])
+
+    return (
+        <div style={{display:'flex',justifyContent:'space-around',flexWrap:'wrap'}}>
+            {users.map(el=><User key={el.id} el={el}/>)}
+        </div>
     )
+}
 
-    },[]);
-    if (loading) {
-        <Spinner animation="border"variant="danger"/>
-    }
-        return (
-
-            <div style ={{ display: "flex", flexwrap:wrap,justifyContent:"center" }}>
-            {users.map((user)=>(
-<UserCard user={user}/>
-            ))}
-</div>
-        );
-            };
-            
-   export default Userlist;
+export default UserList

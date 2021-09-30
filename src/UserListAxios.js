@@ -1,42 +1,43 @@
-import axios from "axios";
-import {useEffect,useState} from "react";
-import {spinner} from "react-bootstrap";
-import userCard from"./UserCard";
-const UserListAxios =()=>{
-const [users, setUsers] =usestate ([]);
-const [loading, setloading]=usestate (true);
-useEffect(()=>{
-   // axios.get("https://jsonplaceholder.typicode.com/users")
-    //.then((res) => res.data) 
-     //.then((el) => {setUsers(el);
-     //setloading(false);})
-     const fetchUser=async()=>{
-try{
-    const {data} = await axios.get('https://jsonplaceholder.typicode.com/users/${match.params.id}'
+import React  from 'react'
+import {useEffect,useState} from 'react'
+import { Spinner } from 'react-bootstrap';
+import UserCard from "./UserCard";
+import axios from 'axios';
+const UserListAxios = () => {
+    const [users, setUsers] =useState([]);
+    const [loading, setloading]=useState (true);
+    useEffect(()=>{
+       // axios.get("https://jsonplaceholder.typicode.com/users")
+        //.then((res) => res.data) 
+         //.then((el) => {setUsers(el);
+         //setloading(false);})
+         const fetchUser=async()=>{
+    try{
+        const {data} = await axios.get("https://jsonplaceholder.typicode.com/users");
+         setUsers (data);
+         setloading(false);
+    }
+    catch (error){
+    
+    console.error(error);
+    }
+    };
+    
+    fetchUser();
+    },[]);
+    if (loading){
+        return <Spinner animation="border"variant="danger"/>;
+    };
+    return(
+        <div style ={{ display: "flex", flexwrap:"wrap",justifyContent:"center" }}>
+        {users.map((user)=>(
+    <UserCard user={user}/>
+        ))}
+    </div>
+    
     );
-     setUsers (data);
-     setloading(false);
-}
-catch (error){
+    };
 
-console.error(error);
-}
-};
+export default UserListAxios
 
-fetchUsers();
-},[]);
-if (loading){
-    return<spinner animation="border"variant="danger"/>;
-}
-return(
-< style={{ display:"flex", flexWrap,justifyContent:"center"}}>
-{users.map((user)=>(
-    <userCard user={user}/>
-))}
-</div>
-
-);
-};
-
-export default UserListAxios;
 
